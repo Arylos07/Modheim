@@ -8,7 +8,7 @@ using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine.UI;
-using SFB;
+using SimpleFileBrowser;
 
 public class FileManager : MonoBehaviour
 {
@@ -74,8 +74,14 @@ public class FileManager : MonoBehaviour
 
     public void SetGameDirectory()
     {
-        string[] directory = StandaloneFileBrowser.OpenFolderPanel("Select the Valheim game folder...", valheimDirectory, false);
-        if(directory.Length > 0)
+        //using this instead of Standalone File Browser.
+        //SFB only works on .NET 4.0 but the Zip utilities only works on 2.0.
+        FileBrowser.ShowLoadDialog(_GameDirectory, null, FileBrowser.PickMode.Folders, false, valheimDirectory, null, "Select the Valheim game folder...");
+    }
+
+    void _GameDirectory(string[] directory)
+    {
+        if (directory.Length > 0)
         {
             valheimDirectory = directory[0];
             FileBasedPrefs.SetString(gameDirectory, valheimDirectory);
@@ -172,8 +178,9 @@ public class FileManager : MonoBehaviour
         deployedModPack = string.Empty;
     }
 
+
     /// <summary>
-    /// Create a Modheim Modpack containing details and data. The resulting file can be sent and unpacked by DeployModpack()
+    /// Create a Modheim Modpack containing details and data. The resulting file can be sent and unpacked by DeployModpack().
     /// </summary>
     public void CreateModpack(string modPackName)
     {
@@ -216,7 +223,7 @@ public class FileManager : MonoBehaviour
             pack.Close();
         }
 
-        File.Delete(Path.Combine(valheimDirectory, modPackName + ".zip"));
+        //File.Delete(Path.Combine(valheimDirectory, modPackName + ".zip"));
     }
 
     /// <summary>
@@ -250,7 +257,7 @@ public class FileManager : MonoBehaviour
 
         modFile.Close();
 
-        ZipFile.ExtractToDirectory(Path.Combine(Application.dataPath, "modFile.zip"), valheimDirectory);
+        //ZipFile.ExtractToDirectory(Path.Combine(Application.dataPath, "modFile.zip"), valheimDirectory);
 
         File.WriteAllText(Path.Combine(valheimDirectory, deployedFilename), pack.Name);
 
