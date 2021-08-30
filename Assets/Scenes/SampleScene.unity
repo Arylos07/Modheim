@@ -206,3 +206,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1545457426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1545457428}
+  - component: {fileID: 1545457427}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1545457427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545457426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b90cf3726042f542998ceda564124da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valheimDirectory: K:\Steam Library\steamapps\common\Valheim
+  DefaultFiles:
+    Files:
+    - K:\Steam Library\steamapps\common\Valheim\steam_appid.txt
+    - K:\Steam Library\steamapps\common\Valheim\UnityCrashHandler64.exe
+    - K:\Steam Library\steamapps\common\Valheim\UnityPlayer.dll
+    - K:\Steam Library\steamapps\common\Valheim\valheim.exe
+    - K:\Steam Library\steamapps\common\Valheim\Arylos Modpack.zip
+    Folders:
+    - K:\Steam Library\steamapps\common\Valheim\MonoBleedingEdge
+    - K:\Steam Library\steamapps\common\Valheim\valheim_Data
+  scannedDirectory:
+    Files:
+    - K:\Steam Library\steamapps\common\Valheim\Arylos Modpack.zip
+    - K:\Steam Library\steamapps\common\Valheim\changelog.txt
+    - K:\Steam Library\steamapps\common\Valheim\doorstop_config.ini
+    - K:\Steam Library\steamapps\common\Valheim\LICENSE
+    - K:\Steam Library\steamapps\common\Valheim\vortex.deployment.unstripped-assemblies.json
+    - K:\Steam Library\steamapps\common\Valheim\winhttp.dll
+    Folders:
+    - K:\Steam Library\steamapps\common\Valheim\AdvancedBuilder
+    - K:\Steam Library\steamapps\common\Valheim\BepInEx
+    - K:\Steam Library\steamapps\common\Valheim\InSlimVML
+    - K:\Steam Library\steamapps\common\Valheim\unstripped_corlib
+    - K:\Steam Library\steamapps\common\Valheim\vortex-worlds
+  modPackName: Arylos Modpack
+  modpack: F:/GitHub/Modheim/Assets/661731.zip
+--- !u!4 &1545457428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545457426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.424055, y: 0.1582259, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
