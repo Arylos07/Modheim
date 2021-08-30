@@ -158,7 +158,7 @@ public class FileManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Purge all non-default files from the directory, effectively reverting the game to its default state.
+    /// Purge all non-default files from the directory, effectively reverting the game to its default state. Does not warn user.
     /// </summary>
     public void PurgeFiles()
     {
@@ -177,13 +177,23 @@ public class FileManager : MonoBehaviour
         deployedModPack = string.Empty;
     }
 
+    /// <summary>
+    /// Displays UI Confirmation before purging files.
+    /// </summary>
+    public void WarnPurgeFiles()
+    {
+        UIConfirmation.singleton.Show("Are you sure you want to purge the game folder? All non-default files and folders will be deleted.", () =>
+        {
+            PurgeFiles();
+        });
+    }
 
     /// <summary>
     /// Create a Modheim Modpack containing details and data. The resulting file can be sent and unpacked by DeployModpack().
     /// </summary>
-    public void CreateModpack(string modPackName)
+    public void CreateModpack(ModheimModpack rawModpack)
     {
-        if (modPackName == string.Empty) modPackName = UnityEngine.Random.Range(000000, 999999).ToString();
+        string modPackName = rawModpack.Name;
         string workingDirectory = valheimDirectory + "/" + modPackName;
 
         ValheimDirectory mods = ScanFiles(true);
@@ -194,18 +204,16 @@ public class FileManager : MonoBehaviour
 
         Directory.Delete(workingDirectory, true);
 
-        ModheimModpack rawModpack = new ModheimModpack();
-        rawModpack.Name = "Test";
-        rawModpack.Description = "This is a big boi test";
         byte[] bytes;
         using (FileStream file = new FileStream(Path.Combine(valheimDirectory, modPackName + ".zip"), FileMode.Open, FileAccess.Read))
         {
             bytes = new byte[file.Length];
             file.Read(bytes, 0, (int)file.Length);
+            file.Close();
         }
         rawModpack.Data = new BitArray(bytes);
 
-        FileStream pack = new FileStream(Path.Combine(valheimDirectory, modPackName + ".modheim"), FileMode.Create);
+        FileStream pack = new FileStream(Path.Combine(LaunchManager.ModpacksPath, modPackName + ".modheim"), FileMode.Create);
 
         BinaryFormatter formatter = new BinaryFormatter();
         try
@@ -222,7 +230,9 @@ public class FileManager : MonoBehaviour
             pack.Close();
         }
 
-        //File.Delete(Path.Combine(valheimDirectory, modPackName + ".zip"));
+        File.Delete(Path.Combine(valheimDirectory, modPackName + ".zip"));
+
+        UIPopup.singleton.Show("Modpack successfully created! You can now find it in your modpacks list.");
     }
 
     /// <summary>
@@ -256,13 +266,15 @@ public class FileManager : MonoBehaviour
 
         modFile.Close();
 
-        //ZipFile.ExtractToDirectory(Path.Combine(Application.dataPath, "modFile.zip"), valheimDirectory);
+        ZipFile.ExtractToDirectory(Path.Combine(Application.dataPath, "modFile.zip"), valheimDirectory);
 
         File.WriteAllText(Path.Combine(valheimDirectory, deployedFilename), pack.Name);
 
         File.Delete(Path.Combine(Application.dataPath, "modFile.zip"));
 
         deployedModPack = pack.Name;
+
+        UIPopup.singleton.Show("Successfully deployed modpack " + pack.Name);
     }
 
     /// <summary>

@@ -19,10 +19,17 @@ public class LaunchManager : MonoBehaviour
         if (!Directory.Exists(ModpacksPath)) Directory.CreateDirectory(ModpacksPath);
 #else
         dataPath = Application.dataPath.Replace("/Assets", string.Empty);
-        ModpacksPath = dataPath + "/Assets/Modpacks";
+        ModpacksPath = dataPath + "/Modpacks";
         if (!Directory.Exists(ModpacksPath)) Directory.CreateDirectory(ModpacksPath);
 #endif
 
+        Invoke(nameof(Load), 3);
+
+    }
+
+    public void Load()
+    {
+        SceneManager.LoadScene("Main");
     }
 
     /// <summary>
