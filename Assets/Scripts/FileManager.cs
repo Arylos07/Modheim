@@ -214,6 +214,17 @@ public class FileManager : MonoBehaviour
         return pack;
     }
 
+    /// <summary>
+    /// Check if a path is a syslink. Modheim can't work on syslink deployments so detect them and warn the user.
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public static bool IsSymbolic(string path)
+    {
+        FileInfo pathInfo = new FileInfo(path);
+        return pathInfo.Attributes.HasFlag(FileAttributes.ReparsePoint);
+    }
+
     private static byte[] BitArrayToByteArray(BitArray bits)
     {
         byte[] ret = new byte[(bits.Length - 1) / 8 + 1];

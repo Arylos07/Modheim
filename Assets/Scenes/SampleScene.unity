@@ -247,21 +247,10 @@ MonoBehaviour:
     - K:\Steam Library\steamapps\common\Valheim\MonoBleedingEdge
     - K:\Steam Library\steamapps\common\Valheim\valheim_Data
   scannedDirectory:
-    Files:
-    - K:\Steam Library\steamapps\common\Valheim\Arylos Modpack.zip
-    - K:\Steam Library\steamapps\common\Valheim\changelog.txt
-    - K:\Steam Library\steamapps\common\Valheim\doorstop_config.ini
-    - K:\Steam Library\steamapps\common\Valheim\LICENSE
-    - K:\Steam Library\steamapps\common\Valheim\vortex.deployment.unstripped-assemblies.json
-    - K:\Steam Library\steamapps\common\Valheim\winhttp.dll
-    Folders:
-    - K:\Steam Library\steamapps\common\Valheim\AdvancedBuilder
-    - K:\Steam Library\steamapps\common\Valheim\BepInEx
-    - K:\Steam Library\steamapps\common\Valheim\InSlimVML
-    - K:\Steam Library\steamapps\common\Valheim\unstripped_corlib
-    - K:\Steam Library\steamapps\common\Valheim\vortex-worlds
+    Files: []
+    Folders: []
   modPackName: Arylos Modpack
-  modpack: F:/GitHub/Modheim/Assets/661731.zip
+  modpack: F:/GitHub/Modheim/Assets/Arylos Modpack.modheim
 --- !u!4 &1545457428
 Transform:
   m_ObjectHideFlags: 0
