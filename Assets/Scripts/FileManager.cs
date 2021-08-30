@@ -7,32 +7,103 @@ using Sirenix.OdinInspector;
 using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using UnityEngine.UI;
+using SFB;
 
 public class FileManager : MonoBehaviour
 {
     public static FileManager instance;
+    //save keys
+    public const string gameDirectory = "gameDirectory";
+    public const string deployedFilename = ".deployed_modheim_pack";
 
     [Header("Directory Info")]
     public string valheimDirectory; //game directory
+    [HideInInspector] public bool validDirectory = false;
+    public string deployedModPack;
     public ValheimDirectory DefaultFiles; // list of default files that are shipped with the game
     public ValheimDirectory scannedDirectory; // the result of Scanfiles
 
     List<string> files = new List<string>();
     List<string> folders = new List<string>();
 
-    [Header("Modpacks")]
-    public string modPackName;
-    [FilePath(AbsolutePath =true)] public string modpack; //temp
+    [Header("UI")]
+    public Image gameDirectoryStatus;
+    public Sprite validGameDirectory;
+    public Sprite invalidGameDirectory;
+    public Text directoryText;
+
+    public Text deployedText;
+    public List<Button> buttonsRequiringGameDirectory = new List<Button>();
 
     private void Start()
     {
         instance = this;
+        valheimDirectory = FileBasedPrefs.GetString(gameDirectory, string.Empty);
+
+        if (File.Exists(valheimDirectory + "/valheim.exe"))
+        {
+            validDirectory = true;
+            gameDirectoryStatus.sprite = validGameDirectory;
+
+            string deployedPath = Path.Combine(valheimDirectory, deployedFilename);
+            if (File.Exists(deployedPath)) deployedModPack = File.ReadAllText(deployedPath);
+        }
+        else
+        {
+            validDirectory = false;
+            gameDirectoryStatus.sprite = invalidGameDirectory;
+        }
+    }
+
+    private void Update()
+    {
+        deployedText.text = deployedModPack != string.Empty ? "Deployed modpack:\n<i>" + deployedModPack + "</i>" : string.Empty;
+        directoryText.text = valheimDirectory;
+
+        foreach(Button button in buttonsRequiringGameDirectory)
+        {
+            button.interactable = validDirectory;
+        }
+    }
+
+    public void Run()
+    {
+        Application.OpenURL("steam://rungameid/892970");
+    }
+
+    public void SetGameDirectory()
+    {
+        string[] directory = StandaloneFileBrowser.OpenFolderPanel("Select the Valheim game folder...", valheimDirectory, false);
+        if(directory.Length > 0)
+        {
+            valheimDirectory = directory[0];
+            FileBasedPrefs.SetString(gameDirectory, valheimDirectory);
+
+            if (File.Exists(valheimDirectory + "/valheim.exe"))
+            {
+                validDirectory = true;
+                gameDirectoryStatus.sprite = validGameDirectory;
+
+                string deployedPath = Path.Combine(valheimDirectory, deployedFilename);
+                if (File.Exists(deployedPath)) deployedModPack = File.ReadAllText(deployedPath);
+            }
+            else
+            {
+                validDirectory = false;
+                gameDirectoryStatus.sprite = invalidGameDirectory;
+            }
+        }
+        else
+        {
+            validDirectory = false;
+            gameDirectoryStatus.sprite = invalidGameDirectory;
+        }
     }
 
     /// <summary>
     /// Scan game files for content, excluding default files.
     /// </summary>
-    [Button("Scan Files")]
     public void ScanFiles()
     {
         files = new List<string>(Directory.GetFiles(valheimDirectory));
@@ -84,7 +155,6 @@ public class FileManager : MonoBehaviour
     /// <summary>
     /// Purge all non-default files from the directory, effectively reverting the game to its default state.
     /// </summary>
-    [Button("Purge Files")]
     public void PurgeFiles()
     {
         ValheimDirectory _directory = ScanFiles(true);
@@ -98,13 +168,14 @@ public class FileManager : MonoBehaviour
         {
             Directory.Delete(folder, true);
         }
+
+        deployedModPack = string.Empty;
     }
 
     /// <summary>
     /// Create a Modheim Modpack containing details and data. The resulting file can be sent and unpacked by DeployModpack()
     /// </summary>
-    [Button("Create Modpack")]
-    public void CreateModpack()
+    public void CreateModpack(string modPackName)
     {
         if (modPackName == string.Empty) modPackName = UnityEngine.Random.Range(000000, 999999).ToString();
         string workingDirectory = valheimDirectory + "/" + modPackName;
@@ -151,8 +222,7 @@ public class FileManager : MonoBehaviour
     /// <summary>
     /// Extract and deploy a Modpack. 
     /// </summary>
-    [Button("Deploy Modpack")]
-    public void DeployModpack()
+    public void DeployModpack(string modpack)
     {
         ModheimModpack pack = new ModheimModpack();
 
@@ -182,7 +252,11 @@ public class FileManager : MonoBehaviour
 
         ZipFile.ExtractToDirectory(Path.Combine(Application.dataPath, "modFile.zip"), valheimDirectory);
 
+        File.WriteAllText(Path.Combine(valheimDirectory, deployedFilename), pack.Name);
+
         File.Delete(Path.Combine(Application.dataPath, "modFile.zip"));
+
+        deployedModPack = pack.Name;
     }
 
     /// <summary>

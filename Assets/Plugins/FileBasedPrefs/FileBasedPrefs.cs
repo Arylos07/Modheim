@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class FileBasedPrefs
 {
-    private const string SaveFileName = "player.settings";
+    private const string SaveFileName = "modheim.config";
     private const bool ScrambleSaveData = false;
     private const string EncryptionCodeword = "[DEPRECATED]";
     private const bool AutoSaveData = true;
