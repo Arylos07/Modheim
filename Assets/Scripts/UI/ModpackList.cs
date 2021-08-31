@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System.Linq;
 
 public class ModpackList : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class ModpackList : MonoBehaviour
 
     List<string> paths = new List<string>();
     List<ModheimModpack> packs = new List<ModheimModpack>();
-    int selectedIndex;
+    int selectedIndex = -1;
 
     [Header("Metadata UI")]
     public GameObject modpackInfoPanel;
@@ -34,6 +35,7 @@ public class ModpackList : MonoBehaviour
     void Refresh()
     {
         paths = new List<string>(Directory.GetFiles(LaunchManager.ModpacksPath));
+        packs = new List<ModheimModpack>();
         foreach(string path in paths)
         {
             packs.Add(FileManager.instance.ReadMetadata(path));
@@ -56,7 +58,7 @@ public class ModpackList : MonoBehaviour
             slot.PackAuthor.text = pack.Author;
             slot.index = i;
             slot.EnabledImage.enabled = pack.Name == FileManager.instance.deployedModPack;
-            //TODO: Change button colour if this element is selected, likely by toggling interactable
+            slot.ElementButton.interactable = !(slot.index == selectedIndex);
         }
     }
 
@@ -92,18 +94,20 @@ public class ModpackList : MonoBehaviour
 
         if (FileManager.instance.deployedModPack == pack.Name)
         {
-            UIConfirmation.singleton.Show("Are you sure you want to disable this modpack? The directory will be purged; any and all non-default files will be deleted.", () =>
+            UIConfirmation.singleton.Show("Are you sure you want to disable this modpack?", () =>
             {
-                FileManager.instance.PurgeFiles(); // <-- maybe add some smarts so it only removes what was in the mod pack?
+                FileManager.instance.RemoveModpack(pack);
+                SelectPack(selectedIndex); //redraw modpack info
+                UIPopup.singleton.Show("Successfully removed " + pack.Name);
             });
         }
         else if(FileManager.instance.deployedModPack != string.Empty && FileManager.instance.deployedModPack != pack.Name)
         {
             //display warning. If confirmed, purge before continuing
-            UIConfirmation.singleton.Show("You already have modpack " + FileManager.instance.deployedModPack + " enabled. To enable another modpack, the game directory must be purged. " +
-                "\nDo you want to proceed? This cannot be undone.", () =>
+            UIConfirmation.singleton.Show("You already have modpack " + FileManager.instance.deployedModPack + " enabled. To enable another modpack, the enabled modpack must be disabled " +
+                "\n\nDo you want to proceed? This cannot be undone.", () =>
                 {
-                    FileManager.instance.PurgeFiles();
+                    FileManager.instance.RemoveModpack(packs.First(x => x.Name == FileManager.instance.deployedModPack));
                     FileManager.instance.DeployModpack(paths[selectedIndex]);
                 });
         }
@@ -140,6 +144,8 @@ public class ModpackList : MonoBehaviour
         {
             File.Delete(paths[selectedIndex]);
             Refresh();
+            modpackInfoPanel.SetActive(false);
+            selectedIndex = -1;
         });
     }
 

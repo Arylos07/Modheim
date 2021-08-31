@@ -132,16 +132,16 @@ public class FileManager : MonoBehaviour
     /// <summary>
     /// Scan and return a ValheimDirectory of what is currently in the game directory
     /// </summary>
-    /// <param name="scanForDefaultFiles">If true, the result will contain all of the default files shipped with the game</param>
+    /// <param name="ignoreDefaultFiles">If true, the result will contain all of the default files shipped with the game</param>
     /// <returns>A ValheimDirectory object containing what is currently in the game directory.</returns>
-    public ValheimDirectory ScanFiles(bool scanForDefaultFiles)
+    public ValheimDirectory ScanFiles(bool ignoreDefaultFiles)
     {
         files = new List<string>(Directory.GetFiles(valheimDirectory));
         folders = new List<string>(Directory.GetDirectories(valheimDirectory));
 
         scannedDirectory = new ValheimDirectory(files, folders);
 
-        if (!scanForDefaultFiles) return scannedDirectory;
+        if (!ignoreDefaultFiles) return scannedDirectory;
 
         foreach (string file in scannedDirectory.Files)
         {
@@ -196,7 +196,7 @@ public class FileManager : MonoBehaviour
         string modPackName = rawModpack.Name;
         string workingDirectory = valheimDirectory + "/" + modPackName;
 
-        ValheimDirectory mods = ScanFiles(true);
+        rawModpack.modpackDirectory = ScanFiles(true);
 
         DirectoryCopy(valheimDirectory, workingDirectory, true, DefaultFiles);
 
@@ -275,6 +275,23 @@ public class FileManager : MonoBehaviour
         deployedModPack = pack.Name;
 
         UIPopup.singleton.Show("Successfully deployed modpack " + pack.Name);
+    }
+
+    public void RemoveModpack(ModheimModpack modpack)
+    {
+        foreach(string file in modpack.modpackDirectory.Files)
+        {
+            File.Delete(file);
+        }
+
+        foreach(string directory in modpack.modpackDirectory.Folders)
+        {
+            Directory.Delete(directory, true);
+        }
+
+        File.Delete(Path.Combine(valheimDirectory, deployedFilename));
+
+        deployedModPack = string.Empty;
     }
 
     /// <summary>

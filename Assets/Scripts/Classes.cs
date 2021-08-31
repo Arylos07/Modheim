@@ -30,5 +30,6 @@ public class ModheimModpack
     public string Version; //version
     public string Author; //who made the modpack
     public string Credits; //any credits for mod creators
+    public ValheimDirectory modpackDirectory; //This is a copy of what exactly the modpack contains at the top level. 
     public BitArray Data; //raw data of mods
 }
