@@ -35,6 +35,9 @@ public class FileManager : MonoBehaviour
     public Text deployedText;
     public List<Button> buttonsRequiringGameDirectory = new List<Button>();
 
+    public GameObject mainPanel;
+    public ModpackList modpackList;
+
     private void Start()
     {
         instance = this;
@@ -71,6 +74,11 @@ public class FileManager : MonoBehaviour
         Application.OpenURL("steam://rungameid/892970");
     }
 
+    public void OpenModpackDirectory()
+    {
+        Application.OpenURL(LaunchManager.ModpacksPath);
+    }
+
     public void SetGameDirectory()
     {
         //using this instead of Standalone File Browser.
@@ -103,6 +111,26 @@ public class FileManager : MonoBehaviour
         {
             validDirectory = false;
             gameDirectoryStatus.sprite = invalidGameDirectory;
+        }
+    }
+
+    public void ImportModpack()
+    {
+        FileBrowser.ShowLoadDialog(_importModpack, null, FileBrowser.PickMode.Files, true, LaunchManager.dataPath, ".modheim", "Select Modheim modpacks for import...", "Import");
+    }
+
+    void _importModpack(string[] directories)
+    {
+        if (directories.Length > 0)
+        {
+            foreach (string modpack in directories)
+            {
+                FileInfo pack = new FileInfo(modpack);
+                File.Copy(modpack, Path.Combine(LaunchManager.ModpacksPath, pack.Name));
+            }
+
+            mainPanel.SetActive(false);
+            modpackList.gameObject.SetActive(true);
         }
     }
 
@@ -236,6 +264,11 @@ public class FileManager : MonoBehaviour
         {
             pack.Close();
         }
+
+        //mark as the deployed modpack. Modheim won't purge when done but we can assume
+        // that the contents of the directory are the same as the modpack, therefore it's deployed
+        File.WriteAllText(Path.Combine(valheimDirectory, deployedFilename), rawModpack.Name);
+        deployedModPack = rawModpack.Name;
 
         File.Delete(Path.Combine(valheimDirectory, modPackName + ".zip"));
 

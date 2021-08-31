@@ -25,6 +25,7 @@ public class ModpackList : MonoBehaviour
     public Button creditsButton;
     public Text descriptionText;
     public Text deployButtonText;
+    public GameObject templateButton;
 
     private void OnEnable()
     {
@@ -32,7 +33,13 @@ public class ModpackList : MonoBehaviour
         Refresh();
     }
 
-    void Refresh()
+    private void OnDisable()
+    {
+        selectedIndex = -1;
+        modpackInfoPanel.SetActive(false);
+    }
+
+    public void Refresh()
     {
         paths = new List<string>(Directory.GetFiles(LaunchManager.ModpacksPath));
         packs = new List<ModheimModpack>();
@@ -79,10 +86,12 @@ public class ModpackList : MonoBehaviour
         {
             deployButtonText.text = "Disable Modpack";
             //TODO: colours?
+            templateButton.SetActive(true);
         }
         else
         {
             deployButtonText.text = "Enable Modpack";
+            templateButton.SetActive(false);
         }
 
         modpackInfoPanel.SetActive(true); //disabled when Modheim first starts to hide placeholder values
@@ -149,10 +158,8 @@ public class ModpackList : MonoBehaviour
         });
     }
 
-    //untested
     public void OpenModPath()
     {
-        FileInfo file = new FileInfo(paths[selectedIndex]);
-        Application.OpenURL(file.Directory.FullName);
+        FileManager.instance.OpenModpackDirectory();
     }
 }
