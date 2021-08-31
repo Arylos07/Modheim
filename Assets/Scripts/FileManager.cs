@@ -34,9 +34,12 @@ public class FileManager : MonoBehaviour
 
     public Text deployedText;
     public List<Button> buttonsRequiringGameDirectory = new List<Button>();
+    public List<GameObject> modPanels = new List<GameObject>();
 
     public GameObject mainPanel;
     public ModpackList modpackList;
+
+    public static bool ValheimRunning => System.Diagnostics.Process.GetProcessesByName("valheim").Length > 0;
 
     private void Start()
     {
@@ -65,7 +68,17 @@ public class FileManager : MonoBehaviour
 
         foreach(Button button in buttonsRequiringGameDirectory)
         {
-            button.interactable = validDirectory;
+            button.interactable = validDirectory && !ValheimRunning;
+        }
+
+        if (ValheimRunning)
+        {
+            foreach(GameObject panel in modPanels)
+            {
+                panel.SetActive(false);
+            }
+
+            mainPanel.SetActive(true);
         }
     }
 

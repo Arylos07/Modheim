@@ -5903,9 +5903,11 @@ MonoBehaviour:
   buttonsRequiringGameDirectory:
   - {fileID: 279647498}
   - {fileID: 1364774246}
-  - {fileID: 1555377594}
   - {fileID: 591644386}
   - {fileID: 1134271972}
+  modPanels:
+  - {fileID: 1704298999}
+  - {fileID: 765277056}
   mainPanel: {fileID: 1699792386}
   modpackList: {fileID: 1704299003}
 --- !u!4 &1146825699
