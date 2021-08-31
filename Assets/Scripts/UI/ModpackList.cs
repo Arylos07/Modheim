@@ -45,9 +45,9 @@ public class ModpackList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (paths.Count == 0) return;
-
         UIUtils.BalancePrefabs(elementPrefab.gameObject, paths.Count, list);
+
+        if (paths.Count == 0) return;
 
         for (int i = 0; i < paths.Count; ++i)
         {

@@ -106,6 +106,11 @@ public class FileManager : MonoBehaviour
         }
     }
 
+    public void OpenGameDirectory()
+    {
+        Application.OpenURL(valheimDirectory);
+    }
+
     /// <summary>
     /// Scan game files for content, excluding default files.
     /// </summary>
@@ -193,7 +198,9 @@ public class FileManager : MonoBehaviour
     /// </summary>
     public void CreateModpack(ModheimModpack rawModpack)
     {
-        string modPackName = rawModpack.Name;
+        string creationDate = DateTime.UtcNow.ToString("M-dd-y");
+
+        string modPackName = rawModpack.Name + "-" + creationDate;
         string workingDirectory = valheimDirectory + "/" + modPackName;
 
         rawModpack.modpackDirectory = ScanFiles(true);

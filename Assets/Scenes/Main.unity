@@ -2465,7 +2465,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 464637253}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1146825698}
+        m_TargetAssemblyTypeName: FileManager, Assembly-CSharp
+        m_MethodName: OpenGameDirectory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &464637253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3643,6 +3655,8 @@ MonoBehaviour:
   authorInput: {fileID: 1127186465}
   creditsInput: {fileID: 1603958438}
   descInput: {fileID: 2032538734}
+  changes: {fileID: 1507225127}
+  createButton: {fileID: 1593566467}
 --- !u!1 &800529770
 GameObject:
   m_ObjectHideFlags: 0
@@ -4259,7 +4273,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 912918213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 765277060}
+        m_TargetAssemblyTypeName: PackCreator, Assembly-CSharp
+        m_MethodName: DisplayChanges
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &912918213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7870,7 +7896,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -8065,13 +8091,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 46624448}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
-  m_Inertia: 1
+  m_Inertia: 0
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 20
   m_Viewport: {fileID: 945346786}
   m_HorizontalScrollbar: {fileID: 305288138}
   m_VerticalScrollbar: {fileID: 929634310}
