@@ -17,6 +17,13 @@ By design, Modheim functions similarly to Minecraft Forge and MultiMC. Modpacks 
 ![Screenshot_137](https://user-images.githubusercontent.com/31874317/131731086-64918a69-06f0-4e20-8699-d1b9a2d0d45e.png)
 
 
+Platforms
+============
+Modheim only works on Windows 64-bit right now. While it can be built for multiple platforms, the only other machine I have is an old repo of Linux Mint, making it not a good test rig. 
+Contributors that now the Unity build pipeline are more than welcome to build for Mac/Linux and run tests and let me know if they work or need changes. Since Modheim works at the file system level, I feel as though it won't be an easy task. 
+
+**32-bit is not supported at all.** I'm sorry but maintaining 32-bit has always been a pain in my career and since we're dealing with file systems and packaging/extracting files that is shared on the internet, there could be vulnerabilities.
+
 Installation
 ============
 
