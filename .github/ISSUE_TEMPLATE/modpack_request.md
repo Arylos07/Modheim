@@ -8,6 +8,7 @@ assignees: 'Arylos07'
 ---
 ## Description ##
 <!-- Describe your Modpack and contents of the pack and what it brings to the game. Feel free to elaborate on what exactly it does. -->
+<!-- You can still request a modpack even if you didn't create it. If you know it and want to share it, add its information here! -->
 
 ## Linkage ## 
 **Do not post bit.ly or monetized links and only use HTTPS links. Do not use FTP or an unregistered/temporary domain.**
