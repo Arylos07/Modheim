@@ -32,3 +32,10 @@ Contributing
 
 Contributions are always welcome!
 To contribute code or documentation to Modheim, please see [CONTRIBUTING](https://github.com/Arylos07/Modheim/blob/master/CONTRIBUTING.md).
+
+Attribution
+============
+
+* Thanks to [Fungus](https://github.com/snozbot/fungus) for being a good template of a public repository. Most of my repo's are private so I rarely have to fully format a repository for public use.
+* Thanks to [Yasirkula](https://github.com/yasirkula/UnitySimpleFileBrowser) for making a good Unity file browser that still works with .NET 2.0. It's instrumental in making sure this project works and got me out of a really bad rut.
+* Thanks to [Richard Elms](https://github.com/richardelms/FileBasedPlayerPrefs) for making a very nice and extendable replacement to Unity's built-in PlayerPrefs system that has always been more than lacking. It's helped me on several projects.
