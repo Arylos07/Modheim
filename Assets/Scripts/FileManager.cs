@@ -39,6 +39,7 @@ public class FileManager : MonoBehaviour
     public GameObject mainPanel;
     public ModpackList modpackList;
 
+    [Obsolete("Deprecated; this uses a method that tanks the performance of the program if used in Update()")]
     public static bool ValheimRunning => System.Diagnostics.Process.GetProcessesByName("valheim").Length > 0;
 
     private void Start()
@@ -68,9 +69,10 @@ public class FileManager : MonoBehaviour
 
         foreach(Button button in buttonsRequiringGameDirectory)
         {
-            button.interactable = validDirectory && !ValheimRunning;
+            button.interactable = validDirectory;
         }
 
+        /*
         if (ValheimRunning)
         {
             foreach(GameObject panel in modPanels)
@@ -80,6 +82,7 @@ public class FileManager : MonoBehaviour
 
             mainPanel.SetActive(true);
         }
+        */
     }
 
     public void Run()
