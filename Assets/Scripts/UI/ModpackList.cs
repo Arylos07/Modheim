@@ -49,6 +49,12 @@ public class ModpackList : MonoBehaviour
         }
     }
 
+    public void CreateFromTemplate()
+    {
+        PackCreator.template = packs[selectedIndex];
+        //displaying the creation panel will be done by the button's own events
+    }
+
     // Update is called once per frame
     void Update()
     {

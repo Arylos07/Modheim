@@ -249,6 +249,8 @@ public class FileManager : MonoBehaviour
 
         rawModpack.modpackDirectory = ScanFiles(true);
 
+        rawModpack.modpackDirectory.Files.Remove(deployedFilename);
+
         DirectoryCopy(valheimDirectory, workingDirectory, true, DefaultFiles);
 
         ZipFile.CreateFromDirectory(workingDirectory, Path.Combine(valheimDirectory, modPackName + ".zip"));

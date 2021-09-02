@@ -6,6 +6,8 @@ using System.IO;
 
 public class PackCreator : MonoBehaviour
 {
+    public static ModheimModpack template = null;
+
     public FileManager fileManager;
 
     public InputField nameInput;
@@ -33,6 +35,16 @@ public class PackCreator : MonoBehaviour
 
     private void OnEnable()
     {
+        if(template != null)
+        {
+            nameInput.text = template.Name + " (Copy)";
+            versionInput.text = template.Version;
+            creditsInput.text = template.Credits;
+            descInput.text = template.Description;
+
+            template = null;
+        }
+
         DisplayChanges();
     }
 
@@ -73,7 +85,9 @@ public class PackCreator : MonoBehaviour
             changes.text += "<color=green>--> " + folder.Name + "</color>\n";
         }
 
-        foreach(string _file in directory.Files)
+        directory.Files.Remove(".deployed_modheim_pack");
+
+        foreach (string _file in directory.Files)
         {
             FileInfo file = new FileInfo(_file);
             changes.text += "->  " + file.Name + "\n";
