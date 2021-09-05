@@ -164,6 +164,8 @@ public class ModpackList : MonoBehaviour
         });
     }
 
+    //This was intended to open the directory to the selected mod and ping it in file explorer
+    // but that turned out to be a hassle and nothing like AssetDatabase.Ping
     public void OpenModPath()
     {
         FileManager.instance.OpenModpackDirectory();
