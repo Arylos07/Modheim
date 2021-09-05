@@ -10347,6 +10347,7 @@ GameObject:
   - component: {fileID: 1870639969}
   - component: {fileID: 1870639968}
   - component: {fileID: 1870639967}
+  - component: {fileID: 1870639971}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -10443,6 +10444,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1870639971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870639966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf13973164e10049853158b7e18c4b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gitReleaseURL: https://github.com/Arylos07/Modheim/releases/latest
 --- !u!1 &1897281483
 GameObject:
   m_ObjectHideFlags: 0
