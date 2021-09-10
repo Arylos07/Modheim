@@ -11,6 +11,15 @@ By design, Modheim functions similarly to Minecraft Forge and MultiMC. Modpacks 
 
 - Maintainer: [Michael Cox](https://github.com/Arylos07)
 
+IMPORTANT
+============
+Per [Nexus Mods terms of service](https://help.nexusmods.com/article/18-terms-of-service#content) and after a conversation with a Nexus representative, Modheim modpacks are **not allowed to be distributed on the Nexus**. This is due to licensing issues as Modheim packages files *as is*, which means the mod file gets shared with other users. This is not the best solution but it's the only way to get around custom configurations. 
+
+I claim no responsibility for accounts/files lost or banned due to licensing issues such as this. Please make sure to check and see if the mods authors who made the mods you want to package are okay with you using Modheim. 
+
+Mod Creators: please designate whether you are okay with packaging your mod using Modheim. Don't hesitate to reach out if you have questions or suggestions. If you do not want Modheim to package your file, let me know via Github issue and I'll see what I can do. Otherwise, please designate on your mod/mod license page that you do not want the file to be used with Modheim so users are aware. This is a short term fix for a long-term problem and I will investigate the best approach to this.
+
+
 ![Screenshot_134](https://user-images.githubusercontent.com/31874317/131731009-cee748b1-66f4-42b1-af25-b820d04fb2e2.png)
 ![Screenshot_133](https://user-images.githubusercontent.com/31874317/131731020-5d121b5b-38d4-4a82-89fa-9be9101e9dff.png)
 ![Screenshot_136](https://user-images.githubusercontent.com/31874317/131731026-bc72fb35-6654-4175-9f3b-d4bbf39b74ac.png)
@@ -20,7 +29,7 @@ By design, Modheim functions similarly to Minecraft Forge and MultiMC. Modpacks 
 Platforms
 ============
 Modheim only works on Windows 64-bit right now. While it can be built for multiple platforms, the only other machine I have is an old repo of Linux Mint, making it not a good test rig. 
-Contributors that now the Unity build pipeline are more than welcome to build for Mac/Linux and run tests and let me know if they work or need changes. Since Modheim works at the file system level, I feel as though it won't be an easy task. 
+Contributors that know the Unity build pipeline are more than welcome to build for Mac/Linux and run tests and let me know if they work or need changes. Since Modheim works at the file system level, I feel as though it won't be an easy task. 
 
 **32-bit is not supported at all.** I'm sorry but maintaining 32-bit has always been a pain in my career and since we're dealing with file systems and packaging/extracting files that is shared on the internet, there could be vulnerabilities.
 
