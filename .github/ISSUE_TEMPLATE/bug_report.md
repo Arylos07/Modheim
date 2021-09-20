@@ -3,7 +3,7 @@ name: Bug report
 about: Create an issue if you notice a problem. Be sure to follow the steps in the
   template.
 title: "Issue: [ISSUE]"
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
