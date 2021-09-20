@@ -85,7 +85,8 @@ public class PackCreator : MonoBehaviour
             changes.text += "<color=green>--> " + folder.Name + "</color>\n";
         }
 
-        directory.Files.Remove(".deployed_modheim_pack");
+        int deployedFile = directory.Files.FindIndex(filename => filename.Contains(".deployed_modheim_pack"));
+        if (deployedFile != -1) directory.Files.RemoveAt(deployedFile);
 
         foreach (string _file in directory.Files)
         {
