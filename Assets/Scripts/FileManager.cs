@@ -249,7 +249,8 @@ public class FileManager : MonoBehaviour
 
         rawModpack.modpackDirectory = ScanFiles(true);
 
-        rawModpack.modpackDirectory.Files.Remove(deployedFilename);
+        int deployedFile = rawModpack.modpackDirectory.Files.FindIndex(x => x.Contains(deployedFilename));
+        if(deployedFile != -1) rawModpack.modpackDirectory.Files.RemoveAt(deployedFile);
 
         DirectoryCopy(valheimDirectory, workingDirectory, true, DefaultFiles);
 
